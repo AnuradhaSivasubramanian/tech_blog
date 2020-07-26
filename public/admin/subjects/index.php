@@ -1,12 +1,9 @@
-<!doctype html>
+<?php
+require_once('../../../private/initialize.php')
+?>
+<?php $page_title = "Subjects"; ?>
+<?php include(SHARED_PATH . '/admin_header.php') ?>
 
-<html lang="en">
-  <head>
-    <title></title>
-    <meta charset="utf-8">
-  </head>
 
-  <body>
-
-  </body>
-</html>
+<div id="content"></div>
+<?php include(SHARED_PATH . '/admin_footer.php') ?>

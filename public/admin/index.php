@@ -1,25 +1,17 @@
-<!doctype html>
+<?php
+require_once('../../private/initialize.php')
+?>
+<?php $page_title = "Admin Menu"; ?>
+<?php include(SHARED_PATH . '/admin_header.php') ?>
 
-<html lang="en">
 
-<head>
-    <title>TB</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" media="all" href="../stylesheets/admin.css" type="text/css" />
-</head>
-
-<body>
-    <header>
-        <h1>Tech Blog Admin Area</h1>
-    </header>
-    <navigation>
+<div id="content">
+    <div id="main-menu">
+        <h2>Main Menu</h2>
         <ul>
-            <li><a href="index.php">Menu</a></li>
+            <li><a href="subjects/index.php">Subjects</a>
+            </li>
         </ul>
-    </navigation>
-    <div id="content"></div>
-    <footer>
-        &copy; <?php echo date('Y'); ?> Tech Blog</footer>
-</body>
-
-</html>
+    </div>
+</div>
+<?php include(SHARED_PATH . '/admin_footer.php') ?>
