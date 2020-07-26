@@ -8,7 +8,7 @@ if (!isset($page_title)) {
 <html lang="en">
 
 <head>
-    <title>TB <?php echo $page_title; ?></title>
+    <title>TB <?php echo h($page_title); ?></title>
     <meta charset="utf-8">
     <link rel="stylesheet" media="all" href="<?php echo url_for('stylesheets/admin.css'); ?>" type="text/css" />
 </head>
