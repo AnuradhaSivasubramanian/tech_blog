@@ -113,6 +113,24 @@ dd {
   margin: 1em 0 1em 75px;
 }
 
+.button-primary {
+  background-color: #0055dd;
+  color: white;
+  height: 40px;
+  width: 150px;
+  font-size: 1em;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  border: 0.5px solid black;
+}
+
+.form-select {
+  width: 50px;
+  height: 20px;
+  border-radius: 4px;
+}
+
 /* Errors */
 
 .errors {

@@ -20,10 +20,10 @@ $subjects = [
         <h1>Subjects</h1>
 
         <div class="actions">
-            <a class="action" href="">Create New Subject</a>
+            <a class="action" href="<?php echo url_for('/admin/subjects/new.php'); ?>">Create New Subject</a>
         </div>
 
-        <table class="list">
+        <table class=" list">
             <tr>
                 <th>ID</th>
                 <th>Position</th>
@@ -42,7 +42,8 @@ $subjects = [
                 <td><?php echo h($subject['menu_name']); ?></td>
                 <td><a class="action"
                         href="<?php echo url_for('/admin/subjects/show.php?id=' . $subject['id']); ?>">View</a></td>
-                <td><a class="action" href="">Edit</a></td>
+                <td><a class="action"
+                        href="<?php echo url_for('/admin/subjects/edit.php?id=' . $subject['id']); ?>">Edit</a></td>
                 <td><a class="action" href="">Delete</a></td>
             </tr>
             <?php } ?>
