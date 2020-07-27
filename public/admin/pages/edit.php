@@ -2,7 +2,7 @@
 require_once('../../../private/initialize.php');
 
 if (!isset($_GET['id'])) {
-    redirect_to(url_for('/admin/subjects/index.php'));
+    redirect_to(url_for('/admin/pages/index.php'));
 }
 
 $id = $_GET['id'];
@@ -24,17 +24,17 @@ if (is_post_request()) {
 
 ?>
 
-<?php $page_title = 'Edit Subject'; ?>
+<?php $page_title = 'Edit page'; ?>
 <?php include(SHARED_PATH . '/admin_header.php'); ?>
 
 <div id="content">
 
-    <a class="back-link" href="<?php echo url_for('/admin/subjects/index.php'); ?>">&laquo; Back to List</a>
+    <a class="back-link" href="<?php echo url_for('/admin/pages/index.php'); ?>">&laquo; Back to List</a>
 
-    <div class="subject edit">
-        <h1>Edit Subject</h1>
+    <div class="Page edit">
+        <h1>Edit Page</h1>
 
-        <form action="<?php echo url_for('/admin/subjects/edit.php?id=' . h(u($id))); ?>" method="post">
+        <form action="<?php echo url_for('/admin/pages/edit.php?id=' . h(u($id))); ?>" method="post">
             <dl>
                 <dt>Menu Name</dt>
                 <dd><input type="text" name="menu_name" value="<?php echo $menu_name ?>" class="form-input-name" /></dd>
@@ -54,7 +54,7 @@ if (is_post_request()) {
                 <dt>Visible</dt>
                 <dd>
                     <input type="hidden" name="visible" value="0" />
-                    <input type="checkbox" name="visible" value="1" />
+                    <input type="checkbox" name="visible" value="1" <?php echo is_checkbox_checked($visible) ?> />
                 </dd>
             </dl>
             <div id="operations">

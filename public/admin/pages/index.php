@@ -4,15 +4,15 @@ require_once('../../../private/initialize.php')
 
 <?php
 $pages = [
-  ['id' => '1', 'position' => '1', 'visible' => '1', 'menu_name' => 'Who are we'],
-  ['id' => '2', 'position' => '2', 'visible' => '1', 'menu_name' => 'Javascript'],
-  ['id' => '3', 'position' => '3', 'visible' => '1', 'menu_name' => 'Javascript'],
-  ['id' => '4', 'position' => '4', 'visible' => '1', 'menu_name' => 'Python'],
+    ['id' => '1', 'position' => '1', 'visible' => '1', 'menu_name' => 'Who are we'],
+    ['id' => '2', 'position' => '2', 'visible' => '1', 'menu_name' => 'Javascript'],
+    ['id' => '3', 'position' => '3', 'visible' => '1', 'menu_name' => 'Javascript'],
+    ['id' => '4', 'position' => '4', 'visible' => '1', 'menu_name' => 'Python'],
 
-  ['id' => '5', 'position' => '5', 'visible' => '1', 'menu_name' => 'Our Portfolio'],
-  ['id' => '6', 'position' => '6', 'visible' => '1', 'menu_name' => 'Java'],
-  ['id' => '7', 'position' => '7', 'visible' => '1', 'menu_name' => 'PHP'],
-  ['id' => '8', 'position' => '8', 'visible' => '1', 'menu_name' => 'PHP']
+    ['id' => '5', 'position' => '5', 'visible' => '1', 'menu_name' => 'Our Portfolio'],
+    ['id' => '6', 'position' => '6', 'visible' => '1', 'menu_name' => 'Java'],
+    ['id' => '7', 'position' => '7', 'visible' => '1', 'menu_name' => 'PHP'],
+    ['id' => '8', 'position' => '8', 'visible' => '1', 'menu_name' => 'PHP']
 
 ];
 ?>
@@ -24,10 +24,10 @@ $pages = [
 
 <div id="content">
     <div class="Pages listing">
-        <h1>Pagess</h1>
+        <h1>Pages</h1>
 
         <div class="actions">
-            <a class="action" href="">Create New Page</a>
+            <a class="action" href="<?php echo url_for('/admin/pages/new.php'); ?>">Create New Page</a>
         </div>
 
         <table class="list">
@@ -49,7 +49,8 @@ $pages = [
                 <td><?php echo h($page['menu_name']); ?></td>
                 <td><a class="action" href="<?php echo url_for('/admin/pages/show.php?id=' . $page['id']); ?>">View</a>
                 </td>
-                <td><a class="action" href="">Edit</a></td>
+                <td><a class="action" href="<?php echo url_for('/admin/pages/edit.php?id=' . $page['id']); ?>">Edit</a>
+                </td>
                 <td><a class="action" href="">Delete</a></td>
             </tr>
             <?php } ?>

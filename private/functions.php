@@ -51,3 +51,13 @@ function is_get_request()
 {
     return $_SERVER['REQUEST_METHOD'] == 'GET';
 }
+
+function is_option_selected($selected, $option)
+{
+    return $selected == $option ? 'selected' : '';
+}
+
+function is_checkbox_checked($value)
+{
+    return $value == '1' ? ' checked' : '';
+}
