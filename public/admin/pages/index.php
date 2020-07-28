@@ -3,18 +3,7 @@ require_once('../../../private/initialize.php')
 ?>
 
 <?php
-$pages = [
-    ['id' => '1', 'position' => '1', 'visible' => '1', 'menu_name' => 'Who are we'],
-    ['id' => '2', 'position' => '2', 'visible' => '1', 'menu_name' => 'Javascript'],
-    ['id' => '3', 'position' => '3', 'visible' => '1', 'menu_name' => 'Javascript'],
-    ['id' => '4', 'position' => '4', 'visible' => '1', 'menu_name' => 'Python'],
-
-    ['id' => '5', 'position' => '5', 'visible' => '1', 'menu_name' => 'Our Portfolio'],
-    ['id' => '6', 'position' => '6', 'visible' => '1', 'menu_name' => 'Java'],
-    ['id' => '7', 'position' => '7', 'visible' => '1', 'menu_name' => 'PHP'],
-    ['id' => '8', 'position' => '8', 'visible' => '1', 'menu_name' => 'PHP']
-
-];
+$pages_set = find_all_pages();
 ?>
 
 
@@ -33,6 +22,7 @@ $pages = [
         <table class="list">
             <tr>
                 <th>ID</th>
+                <th>Subject Id</th>
                 <th>Position</th>
                 <th>Visible</th>
                 <th>Name</th>
@@ -41,9 +31,10 @@ $pages = [
                 <th>&nbsp;</th>
             </tr>
 
-            <?php foreach ($pages as $page) { ?>
+            <?php while ($page = mysqli_fetch_assoc($pages_set)) { ?>
             <tr>
                 <td><?php echo h($page['id']); ?></td>
+                <td><?php echo h($page['subject_id']); ?></td>
                 <td><?php echo h($page['position']); ?></td>
                 <td><?php echo $page['visible'] == 1 ? 'true' : 'false'; ?></td>
                 <td><?php echo h($page['menu_name']); ?></td>

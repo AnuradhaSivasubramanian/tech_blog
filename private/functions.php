@@ -61,3 +61,20 @@ function is_checkbox_checked($value)
 {
     return $value == '1' ? ' checked' : '';
 }
+
+function confirm_db_connection()
+{
+    if (mysqli_connect_errno()) {
+        $msg = 'DB connection failed ';
+        $msg .= mysqli_connect_error();
+        $msg .= "(" . mysqli_connect_errno() . ")";
+        exit($msg);
+    }
+}
+
+function confirm_result_set($results_set)
+{
+    if (!$results_set) {
+        exit('Database query failed');
+    }
+}

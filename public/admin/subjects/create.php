@@ -5,12 +5,11 @@ if (!is_post_request()) {
     redirect_to(url_for('/admin/subjects/new.php'));
 }
 // Handles values obtained in new.php
+$subject = [];
+$subject['menu_name'] = $_POST['menu_name'] ?? '';
+$subject['position'] = $_POST['position'] ?? '';
+$subject['visible'] = $_POST['visible'] ?? '';
 
-$menu_name = $_POST['menu_name'] ?? '';
-$position = $_POST['position'] ?? '';
-$visible = $_POST['visible'] ?? '';
-
-echo "Form parameters  <br/>";
-echo "menu name : $menu_name <br />";
-echo "position : $position <br />";
-echo "visible : $visible <br/>";
+$result = insert_subject($subject);
+$new_id = mysqli_insert_id($db);
+redirect_to(url_for('/admin/subjects/show.php?id=' . $new_id));
