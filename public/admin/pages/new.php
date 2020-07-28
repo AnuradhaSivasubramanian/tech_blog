@@ -1,6 +1,18 @@
 <?php
 require_once('../../../private/initialize.php');
 ?>
+<?php
+$page_set = find_all_pages();
+$page_count = mysqli_num_rows($page_set) + 1;
+mysqli_free_result($page_set);
+
+$page = [];
+$page['position'] = $page_count;
+
+
+//get the list of subject id with names for the select tag
+$subject_nameset = find_all_subject_names();
+?>
 
 <?php $page_title = 'Create Page'; ?>
 <?php include(SHARED_PATH . '/admin_header.php'); ?>
@@ -18,10 +30,29 @@ require_once('../../../private/initialize.php');
                 <dd><input type="text" name="menu_name" value="" /></dd>
             </dl>
             <dl>
+                <dt>Subject</dt>
+                <dd> <select name="subject" class="form-select-name ">
+                        <?php
+                        while ($subject = mysqli_fetch_assoc($subject_nameset)) {
+                            echo "<option  value=\"{$subject['id']}\"";
+                            echo ">{$subject['menu_name']}</option>";
+                        }
+                        ?>
+                    </select></dd>
+            </dl>
+            <dl>
                 <dt>Position</dt>
                 <dd>
                     <select name="position">
-                        <option value="1">1</option>
+                        <?php
+                        for ($i = 1; $i <= $page_count; $i++) {
+                            echo "<option value=\"{$i}\"";
+                            if ($page["position"] == $i) {
+                                echo " selected";
+                            }
+                            echo ">{$i}</option>";
+                        }
+                        ?>
                     </select>
                 </dd>
             </dl>
@@ -31,6 +62,10 @@ require_once('../../../private/initialize.php');
                     <input type="hidden" name="visible" value="0" />
                     <input type="checkbox" name="visible" value="1" />
                 </dd>
+            </dl>
+            <dl>
+                <dt>Content</dt>
+                <dd><textarea type="text" name="content" value=""></textarea></dd>
             </dl>
             <div id="operations">
                 <input type="submit" value="Create page" class="button-primary" />

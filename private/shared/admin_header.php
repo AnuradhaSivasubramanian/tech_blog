@@ -11,6 +11,8 @@ if (!isset($page_title)) {
     <title>TB <?php echo h($page_title); ?></title>
     <meta charset="utf-8">
     <link rel="stylesheet" media="all" href="<?php echo url_for('stylesheets/admin.css'); ?>" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&family=Space+Mono&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -19,6 +21,6 @@ if (!isset($page_title)) {
     </header>
     <navigation>
         <ul>
-            <li><a href="<?php echo url_for('admin/index.php'); ?>">Menu</a></li>
+            <li><a class="main_a_links" href="<?php echo url_for('admin/index.php'); ?>">Menu</a></li>
         </ul>
     </navigation>

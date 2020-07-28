@@ -16,10 +16,11 @@ $subject_set = find_all_subjects();
 
 <div id="content">
     <div class="subjects listing">
-        <h1>Subjects</h1>
+        <h1 class="heading">Subjects</h1>
 
         <div class="actions">
-            <a class="action" href="<?php echo url_for('/admin/subjects/new.php'); ?>">Create New Subject</a>
+            <a class="a_link" class="action" href="<?php echo url_for('/admin/subjects/new.php'); ?>">Create New
+                Subject</a>
         </div>
 
         <table class=" list">

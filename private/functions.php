@@ -78,3 +78,9 @@ function confirm_result_set($results_set)
         exit('Database query failed');
     }
 }
+
+function return_subject_name($id)
+{
+    $subject = find_a_subject($id);
+    return $subject['menu_name'];
+}

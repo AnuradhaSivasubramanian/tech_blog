@@ -10,7 +10,7 @@ $subject = find_a_subject($id);
 
 
 ?>
-<?php $page_title = 'Edit Subject'; ?>
+<?php $page_title = 'View Subject'; ?>
 <?php include(SHARED_PATH . '/admin_header.php'); ?>
 
 <div id="content">

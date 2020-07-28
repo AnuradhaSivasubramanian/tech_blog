@@ -32,7 +32,7 @@ if (is_post_request()) {
 
 <div id="content">
 
-    <a class="back-link" href="<?php echo url_for('/admin/subjects/index.php'); ?>">&laquo; Back to List</a>
+    <a class="a_link" href="<?php echo url_for('/admin/subjects/index.php'); ?>">&laquo; Back to List</a>
 
     <div class="subject edit">
         <h1>Edit Subject</h1>
