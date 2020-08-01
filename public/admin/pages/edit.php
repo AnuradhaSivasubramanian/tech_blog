@@ -44,7 +44,8 @@ if (is_post_request()) {
     <div class="Page edit">
         <h1>Edit Page</h1>
 
-        <form action="<?php echo url_for('/admin/pages/edit.php?id=' . h(u($id))); ?>" method="post">
+        <form action="<?php echo url_for('/admin/pages/edit.php?id=' . htmlspecialchars(urlencode($id))); ?>"
+            method="post">
             <dl>
                 <dt>Menu Name</dt>
                 <dd><input type="text" name="menu_name" value="<?php echo $page['menu_name'] ?>"
@@ -57,7 +58,7 @@ if (is_post_request()) {
                         <?php
                         for ($i = 1; $i <= $page_count; $i++) {
                             echo "<option value=\"{$i}\"";
-                            if ($page['position'] == $i) {
+                            if ($page['position'] === $i) {
                                 echo " selected";
                             }
                             echo ">{$i}</option>";
@@ -73,7 +74,7 @@ if (is_post_request()) {
                         <?php
                         while ($subject = mysqli_fetch_assoc($subject_nameset)) {
                             echo "<option  value=\"{$subject['id']}\"";
-                            if ($page['subject_id'] == $subject['id']) {
+                            if ($page['subject_id'] === $subject['id']) {
                                 echo " selected";
                             }
                             echo ">{$subject['menu_name']}</option>";

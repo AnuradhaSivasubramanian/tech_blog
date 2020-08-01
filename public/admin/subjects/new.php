@@ -32,7 +32,7 @@ $subject['position'] = $subject_count;
                         <?php
                         for ($i = 1; $i <= $subject_count; $i++) {
                             echo "<option value=\"{$i}\"";
-                            if ($subject["position"] == $i) {
+                            if ($subject["position"] === $i) {
                                 echo " selected";
                             }
                             echo ">{$i}</option>";

@@ -9,20 +9,20 @@ function url_for($script_path)
     return WWW_ROOT . $script_path;
 }
 
-function u($string = "")
-{
-    return urlencode($string);
-}
+// function u($string = "")
+// {
+//     return urlencode($string);
+// }
 
-function raw_u($string = "")
-{
-    return rawurlencode($string);
-}
+// function raw_u($string = "")
+// {
+//     return rawurlencode($string);
+// }
 
-function h($string = "")
-{
-    return htmlspecialchars($string);
-}
+// function h($string = "")
+// {
+//     return htmlspecialchars($string);
+// }
 
 function error_404()
 {
@@ -44,22 +44,22 @@ function redirect_to($location)
 
 function is_post_request()
 {
-    return $_SERVER['REQUEST_METHOD'] == 'POST';
+    return $_SERVER['REQUEST_METHOD'] === 'POST';
 }
 
 function is_get_request()
 {
-    return $_SERVER['REQUEST_METHOD'] == 'GET';
+    return $_SERVER['REQUEST_METHOD'] === 'GET';
 }
 
 function is_option_selected($selected, $option)
 {
-    return $selected == $option ? 'selected' : '';
+    return $selected === $option ? 'selected' : '';
 }
 
 function is_checkbox_checked($value)
 {
-    return $value == '1' ? ' checked' : '';
+    return $value === '1' ? ' checked' : '';
 }
 
 function confirm_db_connection()

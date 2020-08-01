@@ -33,17 +33,17 @@ $pages_set = find_all_pages();
 
             <?php while ($page = mysqli_fetch_assoc($pages_set)) { ?>
             <tr>
-                <td><?php echo h($page['id']); ?></td>
-                <td><?php echo h(return_subject_name($page['subject_id'])); ?></td>
-                <td><?php echo h($page['position']); ?></td>
-                <td><?php echo $page['visible'] == 1 ? 'true' : 'false'; ?></td>
-                <td><?php echo h($page['menu_name']); ?></td>
+                <td><?php echo htmlspecialchars($page['id']); ?></td>
+                <td><?php echo htmlspecialchars(return_subject_name($page['subject_id'])); ?></td>
+                <td><?php echo htmlspecialchars($page['position']); ?></td>
+                <td><?php echo $page['visible'] === '1' ? 'true' : 'false'; ?></td>
+                <td><?php echo htmlspecialchars($page['menu_name']); ?></td>
                 <td><a class="action" href="<?php echo url_for('/admin/pages/show.php?id=' . $page['id']); ?>">View</a>
                 </td>
                 <td><a class="action" href="<?php echo url_for('/admin/pages/edit.php?id=' . $page['id']); ?>">Edit</a>
                 </td>
                 <td><a class="action"
-                        href="<?php echo url_for('/admin/pages/delete.php?id=' . h(u($page['id']))); ?>">Delete</a>
+                        href="<?php echo url_for('/admin/pages/delete.php?id=' . htmlspecialchars(urlencode($page['id']))); ?>">Delete</a>
                 </td>
             </tr>
             <?php } ?>

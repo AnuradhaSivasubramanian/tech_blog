@@ -28,9 +28,11 @@ if (is_post_request()) {
     <div class="subject delete">
         <h1>Delete Subject</h1>
         <p>Are you sure you want to delete this subject?</p>
-        <p class="item"><?php echo h($subject['menu_name']); ?></p>
+        <p class="item"><?php echo htmlspecialchars($subject['menu_name']); ?></p>
 
-        <form action="<?php echo url_for('/admin/subjects/delete.php?id=' . h(u($subject['id']))); ?>" method="post">
+        <form
+            action="<?php echo url_for('/admin/subjects/delete.php?id=' . htmlspecialchars(urlencode($subject['id']))); ?>"
+            method="post">
             <div id="operations">
                 <input type="submit" name="commit" value="Delete Subject" />
             </div>

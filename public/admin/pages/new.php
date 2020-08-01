@@ -47,7 +47,7 @@ $subject_nameset = find_all_subject_names();
                         <?php
                         for ($i = 1; $i <= $page_count; $i++) {
                             echo "<option value=\"{$i}\"";
-                            if ($page["position"] == $i) {
+                            if ($page["position"] === $i) {
                                 echo " selected";
                             }
                             echo ">{$i}</option>";

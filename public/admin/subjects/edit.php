@@ -37,7 +37,8 @@ if (is_post_request()) {
     <div class="subject edit">
         <h1>Edit Subject</h1>
 
-        <form action="<?php echo url_for('/admin/subjects/edit.php?id=' . h(u($id))); ?>" method="post">
+        <form action="<?php echo url_for('/admin/subjects/edit.php?id=' . htmlspecialchars(urlencode($id))); ?>"
+            method="post">
             <dl>
                 <dt>Menu Name</dt>
                 <dd><input type="text" name="menu_name" value="<?php echo $subject['menu_name'] ?>"
@@ -50,7 +51,7 @@ if (is_post_request()) {
                         <?php
                         for ($i = 1; $i <= $subject_count; $i++) {
                             echo "<option value=\"{$i}\"";
-                            if ($subject["position"] == $i) {
+                            if ($subject["position"] === $i) {
                                 echo " selected";
                             }
                             echo ">{$i}</option>";
