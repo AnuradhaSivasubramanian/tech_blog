@@ -59,15 +59,15 @@ function is_option_selected($selected, $option)
 
 function is_checkbox_checked($value)
 {
-    return $value === '1' ? ' checked' : '';
+    return $value === 1 ? ' checked' : '';
 }
 
-function confirm_db_connection()
+function confirm_db_connection($connection)
 {
-    if (mysqli_connect_errno()) {
-        $msg = 'DB connection failed ';
-        $msg .= mysqli_connect_error();
-        $msg .= "(" . mysqli_connect_errno() . ")";
+    if ($connection->connect_errno) {
+        $msg = "Database connection failed: ";
+        $msg .= $connection->connect_error;
+        $msg .= " (" . $connection->connect_errno . ")";
         exit($msg);
     }
 }

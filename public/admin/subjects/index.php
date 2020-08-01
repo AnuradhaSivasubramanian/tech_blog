@@ -34,7 +34,7 @@ $subject_set = find_all_subjects();
                 <th>&nbsp;</th>
             </tr>
 
-            <?php while ($subject = mysqli_fetch_assoc($subject_set)) { ?>
+            <?php while ($subject = $subject_set->fetch_assoc()) { ?>
             <tr>
                 <td><?php echo htmlspecialchars($subject['id']); ?></td>
                 <td><?php echo htmlspecialchars($subject['position']); ?></td>

@@ -26,4 +26,18 @@ require_once('functions.php');
 require_once('database.php');
 require_once('query_functions.php');
 
+// -> all classes in directory
+foreach (glob('class/*.class.php') as $file) {
+    require_once($file);
+}
+
+//autoload class definitions
+function my_autoload($class)
+{
+    if (preg_match('/\A\w+\Z/', $class)) {
+        include('classes/' . $class . '.class.php');
+    }
+}
+spl_autoload_register('my_autoload');
+
 $db = db_connect();

@@ -6,7 +6,7 @@ function find_all_subjects()
 
     $sql = 'SELECT * FROM subjects ';
     $sql .= 'ORDER BY position ASC';
-    $result = mysqli_query($db, $sql);
+    $result = $db->query($sql);
     confirm_result_set($result);
     return $result;
 }
@@ -15,7 +15,7 @@ function find_all_subject_names()
 {
     global $db;
     $sql = 'SELECT id, menu_name FROM subjects ';
-    $result = mysqli_query($db, $sql);
+    $result = $db->query($sql);
     confirm_result_set($result);
     return $result;
 }
@@ -26,7 +26,7 @@ function find_all_pages()
 
     $sql = 'SELECT * FROM pages ';
     $sql .= 'ORDER BY subject_id ASC, position ASC';
-    $result = mysqli_query($db, $sql);
+    $result = $db->query($sql);
     confirm_result_set($result);
     return $result;
 }
@@ -39,14 +39,14 @@ function find_a_subject($id)
     $sql .= "WHERE id = ?";
 
     //prepared statment
-    $stmt = mysqli_prepare($db, $sql);
-    mysqli_stmt_bind_param($stmt, 'i', $id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
+    $stmt = $db->prepare($sql);
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     confirm_result_set($result);
-    $subject = mysqli_fetch_assoc($result);
-    mysqli_free_result($result);
+    $subject = $result->fetch_assoc();
+    $result->free();
     return $subject;
 }
 
@@ -59,10 +59,10 @@ function insert_subject($subject)
     $sql .= "(menu_name, position, visible) ";
     $sql .= "VALUES ( ?, ?, ?)";
 
-    if ($stmt = mysqli_prepare($db, $sql)) {
-        mysqli_stmt_bind_param($stmt, 'sii', $subject['menu_name'], $subject['position'], $subject['visible']);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+    if ($stmt = $db->prepare($sql)) {
+        $stmt->bind_param('sii', $subject['menu_name'], $subject['position'], $subject['visible']);
+        $stmt->execute();
+        $result = $stmt->get_result();
         return true;
     } else {
         echo mysqli_error($db);
@@ -83,10 +83,10 @@ function update_subject($subject)
     $sql .= "WHERE id= ? ";
     $sql .= "LIMIT 1";
 
-    if ($stmt = mysqli_prepare($db, $sql)) {
-        mysqli_stmt_bind_param($stmt, 'siii', $subject['menu_name'], $subject['position'], $subject['visible'], $subject['id']);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+    if ($stmt = $db->prepare($sql)) {
+        $stmt->bind_param('siii', $subject['menu_name'], $subject['position'], $subject['visible'], $subject['id']);
+        $stmt->execute();
+        $result = $stmt->get_result();
         return true;
     } else {
         echo mysqli_error($db);
@@ -104,10 +104,10 @@ function delete_subject($id)
     $sql .= "LIMIT 1";
 
     //prepared statement
-    if ($stmt = mysqli_prepare($db, $sql)) {
-        mysqli_stmt_bind_param($stmt, 'i', $id);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+    if ($stmt = $db->prepare($sql)) {
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
         return true;
     } else {
         echo mysqli_error($db);
@@ -128,14 +128,14 @@ function find_a_page($id)
     $sql .= "WHERE id = ?";
 
     //prepared statment
-    $stmt = mysqli_prepare($db, $sql);
-    mysqli_stmt_bind_param($stmt, 'i', $id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
+    $stmt = $db->prepare($sql);
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     confirm_result_set($result);
-    $page = mysqli_fetch_assoc($result);
-    mysqli_free_result($result);
+    $page = $result->fetch_assoc();
+    $result->free();
     return $page;
 }
 
@@ -150,10 +150,10 @@ function update_page($page)
     $sql .= "WHERE id= ? ";
     $sql .= "LIMIT 1";
 
-    if ($stmt = mysqli_prepare($db, $sql)) {
-        mysqli_stmt_bind_param($stmt, 'siisi', $page['menu_name'], $page['position'], $page['visible'], $page['content'], $page['id']);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+    if ($stmt = $db->prepare($sql)) {
+        $stmt->bind_param('siisi', $page['menu_name'], $page['position'], $page['visible'], $page['content'], $page['id']);
+        $stmt->execute();
+        $result = $stmt->get_result();
         return true;
     } else {
         echo mysqli_error($db);
@@ -170,9 +170,9 @@ function insert_page($page)
     $sql .= "(subject_id, menu_name, position, visible, content) ";
     $sql .= "VALUES ( ?, ?, ?,?,?)";
 
-    if ($stmt = mysqli_prepare($db, $sql)) {
-        mysqli_stmt_bind_param($stmt, 'isiis', $page['subject_id'], $page['menu_name'], $page['position'], $page['visible'],  $page['content']);
-        mysqli_stmt_execute($stmt);
+    if ($stmt = $db->prepare($sql)) {
+        $stmt->bind_param('isiis', $page['subject_id'], $page['menu_name'], $page['position'], $page['visible'],  $page['content']);
+        $stmt->execute();
         return true;
     } else {
         echo mysqli_error($db);
@@ -190,10 +190,10 @@ function delete_page($id)
     $sql .= "WHERE id= ? ";
     $sql .= "LIMIT 1";
 
-    if ($stmt = mysqli_prepare($db, $sql)) {
-        mysqli_stmt_bind_param($stmt, 'i', $id);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+    if ($stmt = $db->prepare($sql)) {
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
         return true;
     } else {
         echo mysqli_error($db);

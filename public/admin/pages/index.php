@@ -31,7 +31,7 @@ $pages_set = find_all_pages();
                 <th>&nbsp;</th>
             </tr>
 
-            <?php while ($page = mysqli_fetch_assoc($pages_set)) { ?>
+            <?php while ($page = $pages_set->fetch_assoc()) { ?>
             <tr>
                 <td><?php echo htmlspecialchars($page['id']); ?></td>
                 <td><?php echo htmlspecialchars(return_subject_name($page['subject_id'])); ?></td>
