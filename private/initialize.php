@@ -24,6 +24,20 @@ define("WWW_ROOT", $doc_root);
 
 require_once('functions.php');
 require_once('database.php');
-require_once('query_functions.php');
+
+// -> All classes in directory
+foreach (glob('classes/*.class.php') as $file) {
+    require_once($file);
+}
+
+// Autoload class definitions
+function my_autoload(string $class)
+{
+    if (preg_match('/\A\w+\Z/', $class)) {
+        include('classes/' . $class . '.class.php');
+    }
+}
+spl_autoload_register('my_autoload');
 
 $db = db_connect();
+Subject::set_db($db);

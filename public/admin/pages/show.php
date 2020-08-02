@@ -6,7 +6,7 @@ require_once('../../../private/initialize.php')
 
 $id = $_GET['id'] ?? '1';
 
-$page = find_a_page($id);
+$page = Page::find_by_id($id);
 
 ?>
 <?php $page_title = 'View Page'; ?>
@@ -16,29 +16,29 @@ $page = find_a_page($id);
 
     <a class="a_link" href="<?php echo url_for('/admin/pages/index.php'); ?>">&laquo; Back to List</a>
     <div class="page show">
-        <h1>Title: <?php echo htmlspecialchars($page['menu_name']); ?></h1>
+        <h1>Title: <?php echo htmlspecialchars($page->menu_name); ?></h1>
 
         <div class="attributes">
             <dl>
                 <dt>Title</dt>
-                <dd><?php echo htmlspecialchars($page['menu_name']); ?></dd>
+                <dd><?php echo htmlspecialchars($page->menu_name); ?></dd>
             </dl>
             <dl>
                 <dt>Position</dt>
-                <dd><?php echo htmlspecialchars($page['position']); ?></dd>
+                <dd><?php echo htmlspecialchars($page->position); ?></dd>
             </dl>
             <dl>
                 <dt>Visible</dt>
-                <dd><?php echo $page['visible'] === 1 ? 'true' : 'false'; ?></dd>
+                <dd><?php echo $page->visible === 1 ? 'true' : 'false'; ?></dd>
             </dl>
             <dl>
                 <dt>subject</dt>
-                <dd><?php echo htmlspecialchars(return_subject_name($page['subject_id'])); ?></dd>
+                <dd><?php echo htmlspecialchars(return_subject_name($page->subject_id)); ?></dd>
             </dl>
 
             <dl>
                 <dt>Content</dt>
-                <dd class="content_container"><?php echo htmlspecialchars($page['content']); ?></dd>
+                <dd class="content_container"><?php echo htmlspecialchars($page->content); ?></dd>
             </dl>
         </div>
     </div>

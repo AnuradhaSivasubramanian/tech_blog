@@ -5,7 +5,7 @@ require_once('../../../private/initialize.php')
 <?php
 
 
-$subject_set = find_all_subjects();
+$subjects = Subject::find_all();
 
 
 ?>
@@ -34,27 +34,25 @@ $subject_set = find_all_subjects();
                 <th>&nbsp;</th>
             </tr>
 
-            <?php while ($subject = mysqli_fetch_assoc($subject_set)) { ?>
+            <?php foreach ($subjects as $subject) { ?>
             <tr>
-                <td><?php echo htmlspecialchars($subject['id']); ?></td>
-                <td><?php echo htmlspecialchars($subject['position']); ?></td>
-                <td><?php echo $subject['visible'] === '1' ? 'true' : 'false'; ?></td>
-                <td><?php echo htmlspecialchars($subject['menu_name']); ?></td>
+                <td><?php echo htmlspecialchars($subject->id); ?></td>
+                <td><?php echo htmlspecialchars($subject->position); ?></td>
+                <td><?php echo $subject->visible === '1' ? 'true' : 'false'; ?></td>
+                <td><?php echo htmlspecialchars($subject->menu_name); ?></td>
                 <td><a class="action"
-                        href="<?php echo url_for('/admin/subjects/show.php?id=' . htmlspecialchars(urlencode($subject['id']))); ?>">View</a>
+                        href="<?php echo url_for('/admin/subjects/show.php?id=' . htmlspecialchars(urlencode($subject->id))); ?>">View</a>
                 </td>
                 <td><a class="action"
-                        href="<?php echo url_for('/admin/subjects/edit.php?id=' . htmlspecialchars(urlencode($subject['id']))); ?>">Edit</a>
+                        href="<?php echo url_for('/admin/subjects/edit.php?id=' . htmlspecialchars(urlencode($subject->id))); ?>">Edit</a>
                 </td>
                 <td><a class="action"
-                        href="<?php echo url_for('/admin/subjects/delete.php?id=' . htmlspecialchars(urlencode($subject['id']))); ?>">Delete</a>
+                        href="<?php echo url_for('/admin/subjects/delete.php?id=' . htmlspecialchars(urlencode($subject->id))); ?>">Delete</a>
                 </td>
             </tr>
             <?php } ?>
         </table>
-        <?php
-        mysqli_free_result($subject_set);
-        ?>
+
     </div>
 
 </div>

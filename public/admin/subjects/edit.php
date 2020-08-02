@@ -6,23 +6,27 @@ if (!isset($_GET['id'])) {
 }
 
 $id = $_GET['id'];
-
+$subject = Subject::find_by_id($id);
+if ($subject == false) {
+    redirect_to(url_for('/admin/subjects/index.php'));
+}
 
 if (is_post_request()) {
 
-    $subject = [];
-    $subject['id'] = $id;
-    $subject['menu_name'] = $_POST['menu_name'] ?? '';
-    $subject['position'] = $_POST['position'] ?? '';
-    $subject['visible'] = $_POST['visible'] ?? '';
+    $args = [];
+    $args['id'] = $id;
+    $args['menu_name'] = $_POST['menu_name'] ?? '';
+    $args['position'] = $_POST['position'] ?? '';
+    $args['visible'] = $_POST['visible'] ?? '';
 
-    $result = update_subject($subject);
-    redirect_to(url_for('/admin/subjects/show.php?id=' . $id));
+    $subject->merge_attributes($args);
+    $result = $subject->update_a_subject();
+    if ($result === true) {
+        redirect_to(url_for('/admin/subjects/show.php?id=' . $subject->id));
+    };
 } else {
-    $subject = find_a_subject($id);
-    $subject_set = find_all_subjects();
-    $subject_count = mysqli_num_rows($subject_set);
-    mysqli_free_result($subject_set);
+
+    $subject_count = Subject::rows_count();
 }
 
 ?>
@@ -41,7 +45,7 @@ if (is_post_request()) {
             method="post">
             <dl>
                 <dt>Menu Name</dt>
-                <dd><input type="text" name="menu_name" value="<?php echo $subject['menu_name'] ?>"
+                <dd><input type="text" name="menu_name" value="<?php echo $subject->menu_name ?>"
                         class="form-input-name" /></dd>
             </dl>
             <dl>
@@ -51,7 +55,7 @@ if (is_post_request()) {
                         <?php
                         for ($i = 1; $i <= $subject_count; $i++) {
                             echo "<option value=\"{$i}\"";
-                            if ($subject["position"] === $i) {
+                            if ($subject->position === $i) {
                                 echo " selected";
                             }
                             echo ">{$i}</option>";
@@ -65,7 +69,7 @@ if (is_post_request()) {
                 <dd>
                     <input type="hidden" name="visible" value="0" />
                     <input type="checkbox" name="visible" value="1"
-                        <?php echo is_checkbox_checked($subject['visible']) ?> />
+                        <?php echo is_checkbox_checked($subject->visible) ?> />
                 </dd>
             </dl>
             <div id="operations">

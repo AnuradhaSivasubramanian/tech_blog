@@ -5,11 +5,13 @@ if (!is_post_request()) {
     redirect_to(url_for('/admin/subjects/new.php'));
 }
 // Handles values obtained in new.php
-$subject = [];
-$subject['menu_name'] = $_POST['menu_name'] ?? '';
-$subject['position'] = $_POST['position'] ?? '';
-$subject['visible'] = $_POST['visible'] ?? '';
+$args = [];
+$args['menu_name'] = $_POST['menu_name'] ?? '';
+$args['position'] = $_POST['position'] ?? '';
+$args['visible'] = $_POST['visible'] ?? '';
 
-$result = insert_subject($subject);
-$new_id = mysqli_insert_id($db);
-redirect_to(url_for('/admin/subjects/show.php?id=' . $new_id));
+$subject = new Subject($args);
+$result = $subject->create_a_subject();
+if ($result === true) {
+    redirect_to(url_for('/admin/subjects/show.php?id=' . $subject->id));
+};

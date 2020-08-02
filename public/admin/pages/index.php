@@ -3,7 +3,7 @@ require_once('../../../private/initialize.php')
 ?>
 
 <?php
-$pages_set = find_all_pages();
+$pages = Page::find_all();
 ?>
 
 
@@ -31,19 +31,19 @@ $pages_set = find_all_pages();
                 <th>&nbsp;</th>
             </tr>
 
-            <?php while ($page = mysqli_fetch_assoc($pages_set)) { ?>
+            <?php foreach ($pages as $page) { ?>
             <tr>
-                <td><?php echo htmlspecialchars($page['id']); ?></td>
-                <td><?php echo htmlspecialchars(return_subject_name($page['subject_id'])); ?></td>
-                <td><?php echo htmlspecialchars($page['position']); ?></td>
-                <td><?php echo $page['visible'] === '1' ? 'true' : 'false'; ?></td>
-                <td><?php echo htmlspecialchars($page['menu_name']); ?></td>
-                <td><a class="action" href="<?php echo url_for('/admin/pages/show.php?id=' . $page['id']); ?>">View</a>
+                <td><?php echo htmlspecialchars($page->id); ?></td>
+                <td><?php echo htmlspecialchars(return_subject_name($page->subject_id)); ?></td>
+                <td><?php echo htmlspecialchars($page->position); ?></td>
+                <td><?php echo $page->visible === '1' ? 'true' : 'false'; ?></td>
+                <td><?php echo htmlspecialchars($page->menu_name); ?></td>
+                <td><a class="action" href="<?php echo url_for('/admin/pages/show.php?id=' . $page->id); ?>">View</a>
                 </td>
-                <td><a class="action" href="<?php echo url_for('/admin/pages/edit.php?id=' . $page['id']); ?>">Edit</a>
+                <td><a class="action" href="<?php echo url_for('/admin/pages/edit.php?id=' . $page->id); ?>">Edit</a>
                 </td>
                 <td><a class="action"
-                        href="<?php echo url_for('/admin/pages/delete.php?id=' . htmlspecialchars(urlencode($page['id']))); ?>">Delete</a>
+                        href="<?php echo url_for('/admin/pages/delete.php?id=' . htmlspecialchars(urlencode($page->id))); ?>">Delete</a>
                 </td>
             </tr>
             <?php } ?>

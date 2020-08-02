@@ -1,9 +1,9 @@
 <?php
 require_once('../../../private/initialize.php');
 
-$subject_set = find_all_subjects();
-$subject_count = mysqli_num_rows($subject_set) + 1;
-mysqli_free_result($subject_set);
+
+$subject_count = Subject::rows_count() + 1;
+
 
 $subject = [];
 $subject['position'] = $subject_count;

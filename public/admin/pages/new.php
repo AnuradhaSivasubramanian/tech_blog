@@ -2,16 +2,13 @@
 require_once('../../../private/initialize.php');
 ?>
 <?php
-$page_set = find_all_pages();
-$page_count = mysqli_num_rows($page_set) + 1;
-mysqli_free_result($page_set);
-
+$page_count = Page::rows_count() + 1;
 $page = [];
 $page['position'] = $page_count;
 
 
 //get the list of subject id with names for the select tag
-$subject_nameset = find_all_subject_names();
+$subjects = Subject::find_all();
 ?>
 
 <?php $page_title = 'Create Page'; ?>
@@ -33,9 +30,9 @@ $subject_nameset = find_all_subject_names();
                 <dt>Subject</dt>
                 <dd> <select name="subject" class="form-select-name ">
                         <?php
-                        while ($subject = mysqli_fetch_assoc($subject_nameset)) {
-                            echo "<option  value=\"{$subject['id']}\"";
-                            echo ">{$subject['menu_name']}</option>";
+                        foreach ($subjects as $subject) {
+                            echo "<option  value=\"{$subject->id}\"";
+                            echo ">{$subject->menu_name}</option>";
                         }
                         ?>
                     </select></dd>
