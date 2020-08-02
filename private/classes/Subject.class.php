@@ -54,6 +54,15 @@ class Subject
         } else return false;
     }
 
+    static public function subject_count()
+    {
+        $sql = 'SELECT * FROM subjects ';
+        $sql .= 'ORDER BY position ASC';
+        $result =  self::$db->query($sql);
+        confirm_result_set($result);
+        return $result->num_rows;
+    }
+
     static public function delete_a_subject($id)
     {
 
@@ -71,6 +80,54 @@ class Subject
             echo self::$db->error;
             self::$db->close();
             exit;
+        }
+    }
+
+    public function create_a_subject()
+    {
+
+        $sql = "INSERT INTO subjects ";
+        $sql .= "(menu_name, position, visible) ";
+        $sql .= "VALUES ( ?, ?, ?)";
+
+        if ($stmt = self::$db->prepare($sql)) {
+            $stmt->bind_param('sii', $this->menu_name, $this->position, $this->visible);
+            $stmt->execute();
+            if ($stmt->affected_rows === 0) exit('No rows updated');
+            $this->id = self::$db->insert_id;
+            return true;
+        } else {
+            echo self::$db->error;
+            self::$db->close();
+        }
+    }
+
+    public function update_a_subject()
+    {
+        $sql = "UPDATE subjects SET ";
+        $sql .= "menu_name= ?, ";
+        $sql .= "position= ?, ";
+        $sql .= "visible= ? ";
+        $sql .= "WHERE id= ? ";
+        $sql .= "LIMIT 1";
+
+        if ($stmt = self::$db->prepare($sql)) {
+            $stmt->bind_param('siii', $this->menu_name, $this->position, $this->visible, $this->id);
+            $stmt->execute();
+            if ($stmt->affected_rows === 0) exit('No rows updated');
+            return true;
+        } else {
+            echo self::$db->error;
+            self::$db->close();
+        }
+    }
+
+    public function merge_attributes($args = [])
+    {
+        foreach ($args as $key => $value) {
+            if (property_exists($this, $key) && !is_null($value)) {
+                $this->$key = $value;
+            }
         }
     }
 
