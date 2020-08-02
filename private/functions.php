@@ -81,6 +81,6 @@ function confirm_result_set($results_set)
 
 function return_subject_name($id)
 {
-    $subject = find_a_subject($id);
-    return $subject['menu_name'];
+    $subject = Subject::find_by_id($id);
+    return $subject->menu_name;
 }

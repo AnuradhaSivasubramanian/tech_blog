@@ -19,7 +19,7 @@ class Subject
         //results into objects
         $object_array = [];
         while ($record = $result->fetch_assoc()) {
-            $object_array[] = self::instantiate($record);
+            $object_array[] = static::instantiate($record);
         }
 
         $result->free();
@@ -28,17 +28,17 @@ class Subject
 
     static public function find_all()
     {
-        $sql = 'SELECT * FROM subjects ';
-        $sql .= 'ORDER BY position ASC';
+        get_called_class() === 'Subject' ? $sql = 'SELECT * FROM subjects ORDER BY position ASC' : $sql = 'SELECT * FROM pages ORDER BY subject_id ASC, position ASC';
+
         $result =  self::$db->query($sql);
         confirm_result_set($result);
-        return self::result_into_object($result);
+        return static::result_into_object($result);
     }
 
     static public function find_by_id($id)
     {
+        get_called_class() === 'Subject' ? $sql = 'SELECT * FROM subjects ' : $sql = 'SELECT * FROM pages ';
 
-        $sql = 'SELECT * FROM subjects ';
         $sql .= "WHERE id = ?";
 
         //prepared statment
@@ -54,19 +54,19 @@ class Subject
         } else return false;
     }
 
-    static public function subject_count()
+    static public function rows_count()
     {
-        $sql = 'SELECT * FROM subjects ';
+        get_called_class() === 'Subject' ? $sql = 'SELECT * FROM subjects ' : $sql = 'SELECT * FROM pages ';
         $sql .= 'ORDER BY position ASC';
         $result =  self::$db->query($sql);
         confirm_result_set($result);
         return $result->num_rows;
     }
 
-    static public function delete_a_subject($id)
+    static public function delete($id)
     {
 
-        $sql = "DELETE FROM subjects ";
+        get_called_class() === 'Subject' ? $sql = 'DELETE FROM subjects ' : $sql = 'DELETE FROM pages ';
         $sql .= "WHERE id= ? ";
         $sql .= "LIMIT 1";
 
@@ -75,6 +75,7 @@ class Subject
             $stmt->bind_param('i', $id);
             $stmt->execute();
             $result = $stmt->get_result();
+
             return true;
         } else {
             echo self::$db->error;
@@ -133,7 +134,7 @@ class Subject
 
     static protected function instantiate($record)
     {
-        $object = new self;
+        $object = new static;
         foreach ($record as $property => $value) {
             if (property_exists($object, $property)) {
                 $object->$property = $value;

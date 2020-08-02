@@ -5,13 +5,15 @@ if (!is_post_request()) {
     redirect_to(url_for('/admin/pages/new.php'));
 }
 // Handles values obtained in new.php
+$args = [];
+$args['subject_id'] = $_POST['subject'] ?? '';
+$args['menu_name'] = $_POST['menu_name'] ?? '';
+$args['position'] = $_POST['position'] ?? '';
+$args['visible'] = $_POST['visible'] ?? '';
+$args['content'] = $_POST['content'] ?? '';
 
-$page['subject_id'] = $_POST['subject'] ?? '';
-$page['menu_name'] = $_POST['menu_name'] ?? '';
-$page['position'] = $_POST['position'] ?? '';
-$page['visible'] = $_POST['visible'] ?? '';
-$page['content'] = $_POST['content'] ?? '';
-
-$result = insert_page($page);
-$new_id = mysqli_insert_id($db);
-redirect_to(url_for('/admin/pages/show.php?id=' . $new_id));
+$page = new Page($args);
+$result = $page->create_a_page();
+if ($result === true) {
+    redirect_to(url_for('/admin/pages/show.php?id=' . $page->id));
+};

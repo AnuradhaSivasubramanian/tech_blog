@@ -10,7 +10,7 @@ $id = $_GET['id'];
 
 
 if (is_post_request()) {
-    $result = Subject::delete_a_subject($id);
+    $result = Subject::delete($id);
     redirect_to(url_for("admin/subjects/index.php"));
 } else {
     $subject = Subject::find_by_id($id);

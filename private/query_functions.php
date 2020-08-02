@@ -143,6 +143,7 @@ function update_page($page)
 {
     global $db;
     $sql = "UPDATE pages SET ";
+    $sql .= "subject_id= ?, ";
     $sql .= "menu_name= ?, ";
     $sql .= "position= ?, ";
     $sql .= "visible= ?, ";
@@ -151,7 +152,7 @@ function update_page($page)
     $sql .= "LIMIT 1";
 
     if ($stmt = $db->prepare($sql)) {
-        $stmt->bind_param('siisi', $page['menu_name'], $page['position'], $page['visible'], $page['content'], $page['id']);
+        $stmt->bind_param('isiisi',  $page['subject_id'], $page['menu_name'], $page['position'], $page['visible'], $page['content'], $page['id']);
         $stmt->execute();
         $result = $stmt->get_result();
         return true;

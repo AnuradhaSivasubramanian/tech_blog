@@ -26,7 +26,7 @@ if (is_post_request()) {
     };
 } else {
 
-    $subject_count = Subject::subject_count();
+    $subject_count = Subject::rows_count();
 }
 
 ?>

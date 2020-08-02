@@ -2,7 +2,7 @@
 require_once('../../../private/initialize.php');
 
 
-$subject_count = Subject::subject_count() + 1;
+$subject_count = Subject::rows_count() + 1;
 
 
 $subject = [];
