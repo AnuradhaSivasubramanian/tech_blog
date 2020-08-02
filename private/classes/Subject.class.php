@@ -9,12 +9,12 @@ class Subject
     //-------------- START OF ACTIVE RECORD CODE---------------------
     static protected $db;
 
-    static public function set_db($db)
+    static public function set_db(mysqli $db)
     {
         self::$db = $db;
     }
 
-    static public function result_into_object($result)
+    static public function result_into_object(mysqli_result $result): array
     {
         //results into objects
         $object_array = [];
@@ -26,18 +26,23 @@ class Subject
         return $object_array;
     }
 
-    static public function find_all()
+    static public function find_all(): array
     {
-        get_called_class() === 'Subject' ? $sql = 'SELECT * FROM subjects ORDER BY position ASC' : $sql = 'SELECT * FROM pages ORDER BY subject_id ASC, position ASC';
 
+        $sql = 'SELECT * FROM ' . return_table_name(get_called_class()) . "  ";
+        $sql .= "ORDER BY ";
+        if (get_called_class() === 'Page') {
+            $sql .= 'subject_id ASC, ';
+        }
+        $sql .= 'position ASC';
         $result =  self::$db->query($sql);
         confirm_result_set($result);
         return static::result_into_object($result);
     }
 
-    static public function find_by_id($id)
+    static public function find_by_id(int $id)
     {
-        get_called_class() === 'Subject' ? $sql = 'SELECT * FROM subjects ' : $sql = 'SELECT * FROM pages ';
+        $sql = 'SELECT * FROM ' . return_table_name(get_called_class()) . "  ";
 
         $sql .= "WHERE id = ?";
 
@@ -54,19 +59,19 @@ class Subject
         } else return false;
     }
 
-    static public function rows_count()
+    static public function rows_count(): int
     {
-        get_called_class() === 'Subject' ? $sql = 'SELECT * FROM subjects ' : $sql = 'SELECT * FROM pages ';
+        $sql = 'SELECT * FROM ' . return_table_name(get_called_class()) . "  ";
         $sql .= 'ORDER BY position ASC';
         $result =  self::$db->query($sql);
         confirm_result_set($result);
         return $result->num_rows;
     }
 
-    static public function delete($id)
+    static public function delete(int $id): bool
     {
 
-        get_called_class() === 'Subject' ? $sql = 'DELETE FROM subjects ' : $sql = 'DELETE FROM pages ';
+        $sql = 'DELETE FROM ' . return_table_name(get_called_class()) . "  ";
         $sql .= "WHERE id= ? ";
         $sql .= "LIMIT 1";
 
@@ -84,7 +89,7 @@ class Subject
         }
     }
 
-    public function create_a_subject()
+    public function create_a_subject(): bool
     {
 
         $sql = "INSERT INTO subjects ";
@@ -103,7 +108,7 @@ class Subject
         }
     }
 
-    public function update_a_subject()
+    public function update_a_subject(): bool
     {
         $sql = "UPDATE subjects SET ";
         $sql .= "menu_name= ?, ";
@@ -123,7 +128,7 @@ class Subject
         }
     }
 
-    public function merge_attributes($args = [])
+    public function merge_attributes(array $args = [])
     {
         foreach ($args as $key => $value) {
             if (property_exists($this, $key) && !is_null($value)) {
@@ -132,7 +137,7 @@ class Subject
         }
     }
 
-    static protected function instantiate($record)
+    static protected function instantiate($record): self
     {
         $object = new static;
         foreach ($record as $property => $value) {
@@ -155,7 +160,7 @@ class Subject
      *
      * @param array $args
      */
-    public function __construct($args = [])
+    public function __construct(array $args = [])
     {
         $this->id = $args['id'] ?? '';
         $this->menu_name = $args['menu_name'] ?? '';

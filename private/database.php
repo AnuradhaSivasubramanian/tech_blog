@@ -2,7 +2,7 @@
 
 require_once('db_credentials.php');
 
-function db_connect()
+function db_connect(): mysqli
 {
 
     $connection = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
@@ -13,7 +13,7 @@ function db_connect()
 
 
 
-function db_disconnect($connection)
+function db_disconnect(mysqli $connection)
 {
     if (isset($connection)) {
         $connection->close();

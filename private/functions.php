@@ -1,6 +1,6 @@
 <?php
 
-function url_for($script_path)
+function url_for(string $script_path): string
 {
     // add the leading '/' if not present
     if ($script_path[0] != '/') {
@@ -8,21 +8,6 @@ function url_for($script_path)
     }
     return WWW_ROOT . $script_path;
 }
-
-// function u($string = "")
-// {
-//     return urlencode($string);
-// }
-
-// function raw_u($string = "")
-// {
-//     return rawurlencode($string);
-// }
-
-// function h($string = "")
-// {
-//     return htmlspecialchars($string);
-// }
 
 function error_404()
 {
@@ -36,33 +21,41 @@ function error_500()
     exit();
 }
 
-function redirect_to($location)
+function redirect_to(string $location)
 {
     header("Location: $location");
     exit;
 }
 
-function is_post_request()
+function is_post_request(): bool
 {
     return $_SERVER['REQUEST_METHOD'] === 'POST';
 }
 
-function is_get_request()
+function is_get_request(): bool
 {
     return $_SERVER['REQUEST_METHOD'] === 'GET';
 }
 
-function is_option_selected($selected, $option)
-{
-    return $selected === $option ? 'selected' : '';
-}
 
-function is_checkbox_checked($value)
+/**
+ * is_checkbox_checked() returns the string value for the input checkbox attribute 'checked'
+ *
+ * @param integer $value
+ * @return string
+ */
+function is_checkbox_checked(int $value): string
 {
     return $value === 1 ? ' checked' : '';
 }
 
-function confirm_db_connection($connection)
+/**
+ * confirm_db_connection() checks if the database connection throws an error
+ *
+ * @param mysqli $connection
+ * @return void
+ */
+function confirm_db_connection(mysqli $connection)
 {
     if ($connection->connect_errno) {
         $msg = "Database connection failed: ";
@@ -72,15 +65,43 @@ function confirm_db_connection($connection)
     }
 }
 
-function confirm_result_set($results_set)
+/**
+ * confirm_result_set() checks if the result set is empty or has data
+ *
+ * @param mysqli_result $results_set
+ * @return void
+ */
+function confirm_result_set(mysqli_result $results_set)
 {
     if (!$results_set) {
         exit('Database query failed');
     }
 }
 
-function return_subject_name($id)
+/**
+ * return_subject_name() returns the subject name for the given id
+ *
+ * @param integer $id
+ * @return string
+ */
+function return_subject_name(int $id): string
 {
     $subject = Subject::find_by_id($id);
     return $subject->menu_name;
+}
+
+/**
+ * return_table_name() returns the table name based on the class name of the instance
+ *
+ * @param string $classname
+ * @return string
+ */
+function return_table_name(string $classname): string
+{
+    if ($classname == 'Subject') {
+        return 'subjects';
+    }
+    if ($classname == 'Page') {
+        return 'pages';
+    }
 }

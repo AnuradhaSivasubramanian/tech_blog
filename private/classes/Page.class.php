@@ -1,18 +1,13 @@
 <?php
 
 /**
- * Subject class
+ * Page class
  */
 class Page extends Subject
 {
 
-
-
-
-
-
-
-    public function create_a_page()
+    //-------------- START OF ACTIVE RECORD CODE---------------------
+    public function create_a_page(): bool
     {
 
         $sql = "INSERT INTO pages ";
@@ -31,7 +26,7 @@ class Page extends Subject
         }
     }
 
-    public function update_a_page()
+    public function update_a_page(): bool
     {
         $sql = "UPDATE pages SET ";
         $sql .= "subject_id= ?, ";
@@ -65,7 +60,7 @@ class Page extends Subject
      *
      * @param array $args
      */
-    public function __construct($args = [])
+    public function __construct(array $args = [])
     {
         $this->id = $args['id'] ?? '';
         $this->subject_id = $args['subject_id'] ?? '';

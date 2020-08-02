@@ -24,7 +24,6 @@ define("WWW_ROOT", $doc_root);
 
 require_once('functions.php');
 require_once('database.php');
-require_once('query_functions.php');
 
 // -> All classes in directory
 foreach (glob('classes/*.class.php') as $file) {
@@ -32,7 +31,7 @@ foreach (glob('classes/*.class.php') as $file) {
 }
 
 // Autoload class definitions
-function my_autoload($class)
+function my_autoload(string $class)
 {
     if (preg_match('/\A\w+\Z/', $class)) {
         include('classes/' . $class . '.class.php');
