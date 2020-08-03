@@ -8,12 +8,23 @@ class Subject
 
     //-------------- START OF ACTIVE RECORD CODE---------------------
     static protected $db;
-
+    /**
+     * set_db connects the static property $db to the database. 
+     *
+     * @param mysqli $db
+     * @return void
+     */
     static public function set_db(mysqli $db)
     {
         self::$db = $db;
     }
 
+    /**
+     * result_into_object() is a Subject class method that converts the query result into an array of objects
+     *
+     * @param mysqli_result $result
+     * @return array
+     */
     static public function result_into_object(mysqli_result $result): array
     {
         //results into objects
@@ -26,6 +37,11 @@ class Subject
         return $object_array;
     }
 
+    /**
+     * find_all() is a Subject class method that returns the query result of all rows from the table of the class from which it is called
+     *
+     * @return array
+     */
     static public function find_all(): array
     {
 
@@ -40,6 +56,12 @@ class Subject
         return static::result_into_object($result);
     }
 
+    /**
+     * find_by_id() is a Subject class method that returns one row from the table based on the id. The table is chosen based on the class from which the method is called
+     *
+     * @param integer $id
+     * 
+     */
     static public function find_by_id(int $id)
     {
         $sql = 'SELECT * FROM ' . return_table_name(get_called_class()) . "  ";
@@ -59,6 +81,11 @@ class Subject
         } else return false;
     }
 
+    /**
+     * rows_count() is a method that returns the number of rows in the table
+     *
+     * @return integer
+     */
     static public function rows_count(): int
     {
         $sql = 'SELECT * FROM ' . return_table_name(get_called_class()) . "  ";
@@ -68,6 +95,12 @@ class Subject
         return $result->num_rows;
     }
 
+    /**
+     * delete() is a method that deletes a row from the table based on the given id
+     *
+     * @param integer $id
+     * @return boolean
+     */
     static public function delete(int $id): bool
     {
 
@@ -89,6 +122,11 @@ class Subject
         }
     }
 
+    /**
+     * create_a_subject() is a method to create a new row of data in the subjects table
+     *
+     * @return boolean
+     */
     public function create_a_subject(): bool
     {
 
@@ -108,6 +146,11 @@ class Subject
         }
     }
 
+    /**
+     * update_a_subject() is a method that edits an existing row of data in the subjects table
+     *
+     * @return boolean
+     */
     public function update_a_subject(): bool
     {
         $sql = "UPDATE subjects SET ";
@@ -128,6 +171,12 @@ class Subject
         }
     }
 
+    /**
+     * merge_attributes() merges the new values to the key of an existing object during update process.
+     *
+     * @param array $args
+     * @return void
+     */
     public function merge_attributes(array $args = [])
     {
         foreach ($args as $key => $value) {
@@ -137,6 +186,12 @@ class Subject
         }
     }
 
+    /**
+     * instantiate() method creates a new instance of a class and returns it with the values from the query result
+     *
+     * @param [type] $record
+     * @return self
+     */
     static protected function instantiate($record): self
     {
         $object = new static;

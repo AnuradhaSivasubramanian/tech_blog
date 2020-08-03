@@ -2,6 +2,11 @@
 
 require_once('db_credentials.php');
 
+/**
+ * db_connect() connects $db to the database
+ *
+ * @return mysqli
+ */
 function db_connect(): mysqli
 {
 
@@ -12,7 +17,12 @@ function db_connect(): mysqli
 
 
 
-
+/**
+ * db_disconnect() closes  the database connection.
+ *
+ * @param mysqli $connection
+ * 
+ */
 function db_disconnect(mysqli $connection)
 {
     if (isset($connection)) {

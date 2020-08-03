@@ -31,6 +31,12 @@ foreach (glob('classes/*.class.php') as $file) {
 }
 
 // Autoload class definitions
+/**
+ * my_autoload() is an autoload functions to locate the classes directory for all the class definitions
+ *
+ * @param string $class
+ * @return void
+ */
 function my_autoload(string $class)
 {
     if (preg_match('/\A\w+\Z/', $class)) {

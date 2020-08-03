@@ -7,6 +7,12 @@ class Page extends Subject
 {
 
     //-------------- START OF ACTIVE RECORD CODE---------------------
+
+    /**
+     * create_a_page() is a Page class method to insert a row into the pages table
+     *
+     * @return boolean
+     */
     public function create_a_page(): bool
     {
 
@@ -26,6 +32,11 @@ class Page extends Subject
         }
     }
 
+    /**
+     * update_a_page() is a method from Page class that edits a row in the pages table
+     *
+     * @return boolean
+     */
     public function update_a_page(): bool
     {
         $sql = "UPDATE pages SET ";
